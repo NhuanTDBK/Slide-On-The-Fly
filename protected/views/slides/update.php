@@ -1,7 +1,7 @@
 <?php
-/* @var $this SlidesController */
-/* @var $model Slides */
-
+/* controller SlidesController */
+/* model Slides */
+//Lấy thông tin slide được gửi tới 
 $this->breadcrumbs=array(
 	'Slides'=>array('index'),
 	$model->id=>array('view','id'=>$model->id),
@@ -16,6 +16,6 @@ $this->menu=array(
 );
 ?>
 
-<h1>Update Slides <?php echo $model->id; ?></h1>
-
-<?php $this->renderPartial('_form', array('model'=>$model)); ?>
+<h1>Cập nhật Slides <?php echo $model->id; ?></h1>
+<!--Mở trang form nhập dữ liệu -->
+<?php $this->renderPartial('_form', array('model'=>$model)); ?>-

@@ -1,19 +1,19 @@
 <?php
-/* @var $this SlidesController */
+/* @var $this MonHocController */
 /* @var $dataProvider CActiveDataProvider */
 
 $this->breadcrumbs=array(
-	'Slides',
+	'Mon Hoc',
 );
 
 $this->menu=array(
-	array('label'=>'Create Slides', 'url'=>array('create')),
-	array('label'=>'Manage Slides', 'url'=>array('admin')),
+	array('label'=>'Tạo môn học', 'url'=>array('create')),
+	array('label'=>'Quản lí môn học', 'url'=>array('admin')),
 );
 ?>
 
-<h1>Slides</h1>
-<h2>Liệt kê các slides</h2>
+<h1>Môn học</h1>
+
 <?php $this->widget('zii.widgets.CListView', array(
 	'dataProvider'=>$dataProvider,
 	'itemView'=>'_view',

@@ -11,9 +11,26 @@
  *
  * The followings are the available model relations:
  * @property Monhoc $monhoc0
+ * 
+ * The function implements from Active Record
+		tableName
+		rules
+		attributeLabels
+		relation
+ */
+ /*
+	Bang Slide duoc anh xa vao 1 lop
+	Moi instance la 1 row
  */
 class Slides extends CActiveRecord
 {
+	/**
+	 * Tra ve 1 the hien cua lop Slide 
+	 */
+	public static function model($className=__CLASS__)
+	{
+		return parent::model($className);
+	}
 	/**
 	 * @return string the associated database table name
 		Tên bảng 
@@ -29,13 +46,11 @@ class Slides extends CActiveRecord
 	 */
 	public function rules()
 	{
-		// NOTE: you should only define rules for those attributes that
-		// will receive user inputs.
 		return array(
 			array('link', 'required'),
-			array('monhoc', 'numerical', 'integerOnly'=>true),
-			array('link', 'length', 'max'=>100),
-			array('ten', 'length', 'max'=>40),
+			array('monhoc', 'numerical', 'integerOnly'=>true),// ID foreign key
+			array('link', 'length', 'max'=>100),//do dai > 100
+			array('ten', 'length', 'max'=>40),  //do dai > 40  
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
 			array('id, link, monhoc, ten', 'safe', 'on'=>'search'),
@@ -61,11 +76,12 @@ class Slides extends CActiveRecord
 	 */
 	public function attributeLabels()
 	{
+	//Ánh xạ trong array (tên bảng=>"tên hiển thị")
 		return array(
 			'id' => 'ID',
 			'link' => 'Link',
-			'monhoc' => 'Mon hoc',
-			'ten' => 'Ten',
+			'monhoc' => 'Môn học',
+			'ten' => 'Tên',
 		);
 	}
 
@@ -80,10 +96,10 @@ class Slides extends CActiveRecord
 	 *
 	 * @return CActiveDataProvider the data provider that can return the models
 	 * based on the search/filter conditions.
+     *
 	 */
 	public function search()
 	{
-		// @todo Please modify the following code to remove attributes that should not be searched.
 
 		$criteria=new CDbCriteria;
 
@@ -97,14 +113,5 @@ class Slides extends CActiveRecord
 		));
 	}
 
-	/**
-	 * Returns the static model of the specified AR class.
-	 * Please note that you should have this exact method in all your CActiveRecord descendants!
-	 * @param string $className active record class name.
-	 * @return Slides the static model class
-	 */
-	public static function model($className=__CLASS__)
-	{
-		return parent::model($className);
-	}
+	
 }
