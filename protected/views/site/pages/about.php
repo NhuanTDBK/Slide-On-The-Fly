@@ -7,6 +7,10 @@ $this->breadcrumbs=array(
 );
 ?>
 <h1>About</h1>
-
-<p>This is a "static" page. You may change the content of this page
-by updating the file <code><?php echo __FILE__; ?></code>.</p>
+<div id="right">
+<a style=" color:white; text-decoration:none;" href=""><H4>Các Thông tin</H4></a>
+</div>
+<div id="main">
+<img src="Minh_Pic.jpg" style=" width: 160px; height: 220px;" >
+</div>
+</body>

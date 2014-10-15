@@ -54,8 +54,7 @@
 	<div class="clear"></div>
 
 	<div id="footer">
-		Copyright &copy; <?php echo date('Y'); ?> by NhuanTD.<br/>
-		All Rights Reserved.<br/>
+		Copyright &copy; <?php echo date('Y'); ?> by Team3<br/>
 		<?php echo Yii::powered(); ?>
 	</div><!-- footer -->
 
