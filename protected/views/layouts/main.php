@@ -16,19 +16,22 @@
 	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/form.css" />
 
 	<title><?php echo CHtml::encode($this->pageTitle); ?></title>
+	<link rel="stylesheet" style="css/text" href="<?php echo Yii::app()->request->baseUrl;?>/css/style.css"/>
+	<div id="ground1">
+		<img style=" height: 130px; width: 110px;margin-top: 10px;margin-left: 50;" src="<?php echo Yii::app()->request->baseUrl;?>/images/2.jpg">
+	</div>
 </head>
 
 <body>
 
 <div class="container" id="page">
-
+<!--
 	<div id="header">
 
-		<div id="logo"><?php echo CHtml::encode(Yii::app()->name); ?></div>
+		<div id="logo"><?php //echo CHtml::encode(Yii::app()->name); ?></div>
 
-    </div><!-- header -->
-
-	<div id="mainmenu">
+    </div> --> <!-- header -->
+	<div class="ground2">
 		<?php $this->widget('zii.widgets.CMenu',array(
 			'items'=>array(
 				array('label'=>'Home', 'url'=>array('/site/index')),

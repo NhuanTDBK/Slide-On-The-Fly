@@ -1,0 +1,17 @@
+#ground1
+{background-image:url('1.jpg'); background-size:cover; height:150px;width:100%;border-top:5px solid #f63; position: relative;}
+#text1
+{color:white;font-size:36px; position: absolute; left:200px; top:25px; }
+#dangnhap{position:absolute; left:1200px; }
+#main{ width:750px; float:left;-moz-border-radius: 10px; margin-top: 20px;margin-left: 100;box-shadow: -5px -5px 5px rgba(227, 21, 21, 1); border-radius: 10px 10px; border: solid 1px red;}
+#right{height:auto; width: 300px; float:right; right:350px; box-shadow: 0px 0px 7px rgba(227, 21, 21, 1);border-radius: 5px 5px;margin-top: 20px;margin-right: 50;border: solid 1px red;}
+#background{background-color: rgba(249, 177, 51, 1);}
+#content{background-color: rgba(249, 177, 51, 1);}
+#active{background-color: #f60; color: #fff; text-size: 15px; padding: 10px 85px 10px 10px; font-size:16px; font-weight:bold;}
+.ground2 ul li
+{list-style:none; float:left;position: relative; left: 300px;padding: 10px 85px 10px 10px;border-right: 2px solid #F60;border-left: 2px solid #F60;}
+.ground2
+{background-color:orange;font-size:16px; font-weight:bold; height:40px; width:100%; position: relative;border-top: 1px solid #f60;border-bottom: 1px solid #F60;}
+.ground2 a
+{text-decoration: none; color: white; margin-left: 50; }
+.ground2 ul li:hover{ background-color: #f60; color: #fff; text-size: 15px; padding: 10px 85px 10px 10px; font-size:16px; font-weight:bold;}
