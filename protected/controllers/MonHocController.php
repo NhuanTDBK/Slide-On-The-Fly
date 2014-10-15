@@ -47,11 +47,11 @@ class MonHocController extends Controller
     /**
      * Hiển thị thông tin môn học theo id
      */
-    public function actionView($sid)
+    public function actionView($id)
     {
 
         $this->render('view',array(
-            'model'=>$this->loadModel($sid),
+            'model'=>$this->loadModel($id),
         ));
     }
 

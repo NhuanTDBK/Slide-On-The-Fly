@@ -3,7 +3,8 @@
 /**
  * This is the model class for table "slides".
  *
- * The followings are the available columns in table 'slides':
+ * The followings are the available columns 
+ in table 'slides':
  * @property integer $id
  * @property string $link
  * @property integer $monhoc
