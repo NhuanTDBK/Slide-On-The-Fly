@@ -1,22 +1,6 @@
 <?php 
 
-/**
- * This is the model class for table "monhoc".
- *
- * The followings are the available columns in table 'slides':
- * @property integer $id
- * @property string $mamonhoc
- * @property string $tenmonhoc
- * @property integer $hesomon
- * @property string $thoigianhoc
- * @property string $hocphanhoctruoc
- * @property string $decuong
- * @property string $mieuta
- * @property string $tailieuthamkhao
- *
- * The followings are the available model relations:
- * @property Slides slideID
- * 
+/** 
  * The function implements from Active Record
 		tableName
 		rules
@@ -51,9 +35,6 @@
             array('tenmonhoc', 'length', 'max'=>40),
             array('thoigianhoc', 'length', 'max'=>30),
             array('hocphanhoctruoc, decuong, mieuta, tailieuthamkhao', 'length', 'max'=>100),
-            // The following rule is used by search().
-            // @todo Please remove those attributes that should not be searched.
-            array('ID, mamonhoc, tenmonhoc, hesomon, thoigianhoc, hocphanhoctruoc, decuong, mieuta, tailieuthamkhao', 'safe', 'on'=>'search'),
         );
 	}
 	/*
@@ -72,7 +53,7 @@
         );
 	}
 	/*
-	 * Dinh nghia label
+	 * Định nghĩa label
 	 */
      public function attributeLabels()
      {
@@ -88,21 +69,12 @@
              'tailieuthamkhao'=>'Tài liệu tham khảo',
          );
      }
-
+	/*
+		Trả về tất cả các dòng trong bảng
+	*/
      public function search()
      {
          $criteria=new CDbCriteria;
-
-         $criteria->compare('ID',$this->ID);
-         $criteria->compare('mamonhoc',$this->mamonhoc,true);
-         $criteria->compare('tenmonhoc',$this->tenmonhoc,true);
-         $criteria->compare('hesomon',$this->hesomon);
-         $criteria->compare('thoigianhoc',$this->thoigianhoc,true);
-         $criteria->compare('hocphanhoctruoc',$this->hocphanhoctruoc,true);
-         $criteria->compare('decuong',$this->decuong,true);
-         $criteria->compare('mieuta',$this->mieuta,true);
-         $criteria->compare('tailieuthamkhao',$this->tailieuthamkhao,true);
-
          return new CActiveDataProvider($this, array(
              'criteria'=>$criteria,
             ));
