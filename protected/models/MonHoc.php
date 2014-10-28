@@ -1,82 +1,102 @@
-<?php 
+<?php
 
-/** 
- * The function implements from Active Record
-		tableName
-		rules
-		attributeLabels
-		relation
+/**
+ * This is the model class for table "monhoc".
+ *
+ * The followings are the available columns in table 'monhoc':
+ * @property string $mamonhoc
+ * @property string $tenmonhoc
+ * @property string $mieuta
+ *
+ * The followings are the available model relations:
+ * @property Slides[] $slides
  */
- class MonHoc extends CActiveRecord
- {
-	/*
-		Tra ve 1 instance cua MonHoc
-	*/
-	public static function model($className=__CLASS__)
-	{
-		return parent::model($className);
-	}
-	/*
-		Ten bang duoc anh xa
-	*/
+class MonHoc extends CActiveRecord
+{
+	/**
+	 * @return string the associated database table name
+	 */
 	public function tableName()
 	{
 		return 'monhoc';
 	}
-	/*
-		Cac rule de validate truoc khi luu vao db
-	*/
+
+	/**
+	 * @return array validation rules for model attributes.
+	 */
 	public function rules()
 	{
+		// NOTE: you should only define rules for those attributes that
+		// will receive user inputs.
 		return array(
-			array('mamonhoc,tenmonhoc,hesomon,thoigianhoc,decuong,mieuta,tailieuthamkhao','required'),
-			array('hesomon','numerical','min'=>3,'max'=>7,'integerOnly'=>true),
+			array('mamonhoc, tenmonhoc, mieuta', 'required'),
 			array('mamonhoc', 'length', 'max'=>10),
-            array('tenmonhoc', 'length', 'max'=>40),
-            array('thoigianhoc', 'length', 'max'=>30),
-            array('hocphanhoctruoc, decuong, mieuta, tailieuthamkhao', 'length', 'max'=>100),
-        );
+			array('tenmonhoc', 'length', 'max'=>40),
+			// The following rule is used by search().
+			// @todo Please remove those attributes that should not be searched.
+			array('mamonhoc, tenmonhoc, mieuta', 'safe', 'on'=>'search'),
+		);
 	}
-	/*
-		Khoa ngoai 
-	*/
+
+	/**
+	 * @return array relational rules.
+	 */
 	public function relations()
 	{
-
-        /*
-         * Quan hệ với bảng slide: ONE_TO_MANY
-         */
+		// NOTE: you may need to adjust the relation name and the related
+		// class name for the relations automatically generated below.
 		return array(
-
-		//liên kết slide
-            'slides'=>array(self::HAS_MANY,'Slides','monhoc'),
-        );
+			'slides' => array(self::HAS_MANY, 'Slides', 'mamonhoc'),
+		);
 	}
-	/*
-	 * Định nghĩa label
+
+	/**
+	 * @return array customized attribute labels (name=>label)
 	 */
-     public function attributeLabels()
-     {
-         return array(
-             'ID'=>'ID',
-             'mamonhoc'=>'Mã môn học',
-             'tenmonhoc'=>'Tên môn học',
-             'hesomon'=>'Hệ số môn',
-             'thoigianhoc'=>'Thời gian học',
-             'hocphanhoctruoc'=>'Học phần học trước',
-             'decuong'=>'Đề cương',
-             'mieuta'=>'Nội dung',
-             'tailieuthamkhao'=>'Tài liệu tham khảo',
-         );
-     }
-	/*
-		Trả về tất cả các dòng trong bảng
-	*/
-     public function search()
-     {
-         $criteria=new CDbCriteria;
-         return new CActiveDataProvider($this, array(
-             'criteria'=>$criteria,
-            ));
-     }
- }
+	public function attributeLabels()
+	{
+		return array(
+			'mamonhoc' => 'Mã môn học',
+			'tenmonhoc' => 'Tên môn học',
+			'mieuta' => 'Miêu tả',
+		);
+	}
+
+	/**
+	 * Retrieves a list of models based on the current search/filter conditions.
+	 *
+	 * Typical usecase:
+	 * - Initialize the model fields with values from filter form.
+	 * - Execute this method to get CActiveDataProvider instance which will filter
+	 * models according to data in model fields.
+	 * - Pass data provider to CGridView, CListView or any similar widget.
+	 *
+	 * @return CActiveDataProvider the data provider that can return the models
+	 * based on the search/filter conditions.
+	 */
+	public function search()
+	{
+		// @todo Please modify the following code to remove attributes that should not be searched.
+
+		$criteria=new CDbCriteria;
+
+		$criteria->compare('mamonhoc',$this->mamonhoc,true);
+		$criteria->compare('tenmonhoc',$this->tenmonhoc,true);
+		$criteria->compare('mieuta',$this->mieuta,true);
+
+		return new CActiveDataProvider($this, array(
+			'criteria'=>$criteria,
+		));
+	}
+
+	/**
+	 * Returns the static model of the specified AR class.
+	 * Please note that you should have this exact method in all your CActiveRecord descendants!
+	 * @param string $className active record class name.
+	 * @return MonHoc the static model class
+	 */
+	public static function model($className=__CLASS__)
+	{
+		return parent::model($className);
+	}
+}

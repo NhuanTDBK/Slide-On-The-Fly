@@ -2,187 +2,196 @@
 
 class SlidesController extends Controller
 {
-    /**
-     * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
-     * using two-column layout. See 'protected/views/layouts/column2.php'.
-     */
-    public $layout='//layouts/column2';
-    private $_monhoc=null;
-    public function loadMonHoc($sid)
-    {
-        if ($this->_monhoc == null) {
-            $this->_monhoc = MonHoc::model()->findByPk($sid);
+	/**
+	 * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
+	 * using two-column layout. See 'protected/views/layouts/column2.php'.
+	 */
+	public $layout='//layouts/column2';
 
-            if ($this->_monhoc == null) {
-                throw new CHttpException(404, "Môn học không có trong danh mục");
-                return null;
-            }
-        }
-        return $this->_monhoc;
-    }
-    /*
-     * Kiểm tra có môn học hay không trước khi tạo slide
-     */
-    public function filterMonHocContext($filterChain)
-    {
-        if(isset($_GET['sid']))
-        {
-            print_r("HI");
-            $this->_monhoc=$this->loadMonHoc($_GET['sid']);
-        }
-        else throw new CHttpException(403,"Chọn môn học trước khi tạo slide");
-        $filterChain->run();
-    }
-    /**
-     * @return array 1 mảng chứa các bộ lọc
-     * Bộ lọc "chỉ đọc"
-     */
-    public function filters()
-    {
-        return array(
-            'accessControl',
-            'postOnly + delete',
-        );
-    }
+	/**
+	 * @return array action filters
+	 */
+	public function filters()
+	{
+		return array(
+			'accessControl', // perform access control for CRUD operations
+			'postOnly + delete', // we only allow deletion via POST request
+		);
+	}
 
-    /**
+	/**
+	 * Specifies the access control rules.
+	 * This method is used by the 'accessControl' filter.
+	 * @return array access control rules
+	 */
+	public function accessRules()
+	{
+		return array(
+			array('allow',  // allow all users to perform 'index' and 'view' actions
+				'actions'=>array('index','view','upload'),
+				'users'=>array('*'),
+			),
+			array('allow', // allow authenticated user to perform 'create' and 'update' actions
+				'actions'=>array('create','update'),
+				'users'=>array('@'),
+			),
+			array('allow', // allow admin user to perform 'admin' and 'delete' actions
+				'actions'=>array('admin','delete'),
+				'users'=>array('admin'),
+			),
+			array('deny',  // deny all users
+				'users'=>array('*'),
+			),
+		);
+	}
 
-     * Đặc tả các luật truy cập
-     */
-    public function accessRules()
-    {
-        return array(
-            array('allow',  // Cho phép mọi user được xem thông tin
-                'actions'=>array('index','view'),
-                'users'=>array('*'),//All user
-            ),
-            array('allow', // Chỉ người có quyền mới được phép tạo và sửa
-                'actions'=>array('create','update'),
-                'users'=>array('@'),
-            ),
-            array('allow', // Xác nhận admin
-                'actions'=>array('admin','delete'),
-                'users'=>array('admin'),
-            ),
-            array('deny',  // Từ chối người dùng lạ
-                'users'=>array('*'),
-            ),
-        );
-    }
+	/**
+	 * Displays a particular model.
+	 * @param integer $id the ID of the model to be displayed
+	 */
+	public function actionView($id)
+	{
+		$this->render('view',array(
+			'model'=>$this->loadModel($id),
+		));
+	}
+	public function actionUpload()
+	{
+		$this->render('view',array(
+			'model'=>$this->loadModel($id),
+		));
+	}
+	/**
+	 * Creates a new model.
+	 * If creation is successful, the browser will be redirected to the 'view' page.
+	 */
+	public function actionCreate()
+	{
+		
+		$models=new Slides;
+		echo Yii::getPathOfAlias('frontend.files');
+		// Uncomment the following line if AJAX validation is needed
+		// $this->performAjaxValidation($model);
+		if(isset($_GET['id']))
+		$models->tags=$_GET['id'];
+		
+		if(isset($_POST['Slides']))
+		{
+			//$model->attributes=$_POST['Slides'];
+			$file = CUploadedFile::getInstancesByName('document');
+			if(isset($file)&&count($file)>0)
+			{
+				foreach($file as $doc)
+				{
+					if($doc->saveAs(Yii::getPathOfAlias('webroot').'/files/'.$doc))
+					{
+						$model = new Slides;
+						$model->tags=$_GET['id'];
+						$model->noidung = 'http://localhost/slide-on-the-fly/files/'.$doc;
+						$model->tieude = $doc;
+						$model->save();
+					}
+					else print_r("Error");
+				}
+			}
+			if($model->save());
+				//$this->redirect(array('view','id'=>$model->id,'file'=>$file));
+		}
 
-    /**
-     * Hiển thị thông tin Slide theo id
-     */
-    public function actionView($id)
-    {
-        //$slide = Slides::model()->findByPk(1);
-        $monhoc = MonHoc::model()->findByPk(1);
-        $allSlide = $monhoc->slides;
-        //print_r($allSlide);
-        $this->render('view',array(
-            'model'=>$this->loadModel($id),
-        ));
-    }
+		$this->render('create',array(
+			'model'=>$models,
+		));
+	}
 
-    /**
-     * Tạo 1 Slide mới, render thành công ra view page
-     */
-    public function actionCreate()
-    {
-        $model=new Slides('search');
-        //Có request Create
-        //Gửi thành công->lưu dữ liệu
-        $this->_monhoc=$this->loadMonHoc($_GET['sid']);
-        //print_r($this->_monhoc);
-        $model->monhoc = $this->_monhoc->ID;
-        if(isset($_POST['Slides']))
-        {
-            //return all column attribute value;
-            $model->attributes=$_POST['Slides'];
-            //Lưu thành công
-            //Mở view page, cho xem thông tin slide với id
-            if($model->save())
-                $this->redirect(array('view','id'=>$model->id));
-        }
+	/**
+	 * Updates a particular model.
+	 * If update is successful, the browser will be redirected to the 'view' page.
+	 * @param integer $id the ID of the model to be updated
+	 */
+	public function actionUpdate($id)
+	{
+		$model=$this->loadModel($id);
 
-        $this->render('create',array(
-            'model'=>$model,
-        ));
-    }
+		// Uncomment the following line if AJAX validation is needed
+		// $this->performAjaxValidation($model);
 
-    /**
-     * Cập nhật slide theo ID
-     * Nếu thành công, sẽ gửi thông tin tới view page
+		if(isset($_POST['Slides']))
+		{
+			$model->attributes=$_POST['Slides'];
+			if($model->save())
+				$this->redirect(array('view','id'=>$model->id));
+		}
 
-     */
+		$this->render('update',array(
+			'model'=>$model,
+		));
+	}
 
-    public function actionUpdate($id)
-    {
-        //Lấy đối tượng slide theo id
-        $model=$this->loadModel($id);
+	/**
+	 * Deletes a particular model.
+	 * If deletion is successful, the browser will be redirected to the 'admin' page.
+	 * @param integer $id the ID of the model to be deleted
+	 */
+	public function actionDelete($id)
+	{
+		$this->loadModel($id)->delete();
 
-        if(isset($_POST['Slides']))
-        {
-            $model->attributes=$_POST['Slides'];
-            if($model->save())
-                $this->redirect(array('view','id'=>$model->id));
-        }
-        //
-        $this->render('update',array(
-            'model'=>$model,
-        ));
-    }
+		// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
+		if(!isset($_GET['ajax']))
+			$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
+	}
 
-    /**
-     * Xóa slide theo ID
-     * Mở admin page khi cập nhật thành công
-     */
-    public function actionDelete($id)
-    {
-        $this->loadModel($id)->delete();
+	/**
+	 * Lists all models.
+	 */
+	public function actionIndex()
+	{
+		$dataProvider=new CActiveDataProvider('Slides');
+		$this->render('index',array(
+			'dataProvider'=>$dataProvider,
+		));
+	}
 
-        $this->redirect(array('admin'));
-    }
+	/**
+	 * Manages all models.
+	 */
+	public function actionAdmin()
+	{
+		$model=new Slides('search');
+		$model->unsetAttributes();  // clear any default values
+		if(isset($_GET['Slides']))
+			$model->attributes=$_GET['Slides'];
 
-    /**
-     * Liệt kê tất cả slide, đưa thông tin cho page index
-     */
-    public function actionIndex()
-    {
-        $dataProvider=new CActiveDataProvider('Slides');
-        $this->render('index',array(
-            'dataProvider'=>$dataProvider,
-        ));
-    }
+		$this->render('admin',array(
+			'model'=>$model,
+		));
+	}
 
-    /**
-     * Quản lí các slides
-     */
-    public function actionAdmin()
-    {
-        $model= new Slides('search');
-        //$model->unsetAttributes();  // clear any default values
-        if(isset($_GET['Slides']))
-            $model->attributes=$_GET['Slides'];
-        //print_r($model->attributes);
-        //gửi thông tin cho page admin
-        $this->render('admin',array(
-            'model'=>$model,
-        ));
-    }
+	/**
+	 * Returns the data model based on the primary key given in the GET variable.
+	 * If the data model is not found, an HTTP exception will be raised.
+	 * @param integer $id the ID of the model to be loaded
+	 * @return Slides the loaded model
+	 * @throws CHttpException
+	 */
+	public function loadModel($id)
+	{
+		$model=Slides::model()->findByPk($id);
+		if($model===null)
+			throw new CHttpException(404,'The requested page does not exist.');
+		return $model;
+	}
 
-    /**
-     * Lấy slide theo id( id được lấy GET['Slides']->id;
-     * throws CHttpException
-     *
-     */
-    public function loadModel($id)
-    {
-        //Tìm theo khóa chỉnh
-        $model=Slides::model()->findByPk($id);
-        if($model===null)
-            throw new CHttpException(404,'The requested page does not exist.');
-        return $model;
-    }
-
+	/**
+	 * Performs the AJAX validation.
+	 * @param Slides $model the model to be validated
+	 */
+	protected function performAjaxValidation($model)
+	{
+		if(isset($_POST['ajax']) && $_POST['ajax']==='slides-form')
+		{
+			echo CActiveForm::validate($model);
+			Yii::app()->end();
+		}
+	}
 }

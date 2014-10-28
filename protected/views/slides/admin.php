@@ -1,6 +1,7 @@
 <?php
 /* @var $this SlidesController */
 /* @var $model Slides */
+
 $this->breadcrumbs=array(
 	'Slides'=>array('index'),
 	'Manage',
@@ -25,7 +26,10 @@ $('.search-form form').submit(function(){
 ");
 ?>
 
-<h1>Quản lí Slides</h1>
+<h1>Quản lí slides</h1>
+
+
+<?php echo CHtml::link('Advanced Search','#',array('class'=>'search-button')); ?>
 <div class="search-form" style="display:none">
 <?php $this->renderPartial('_search',array(
 	'model'=>$model,
@@ -38,9 +42,9 @@ $('.search-form form').submit(function(){
 	'filter'=>$model,
 	'columns'=>array(
 		'id',
-		'link',
-		'monhoc',
-		'ten',
+		'noidung',
+		'tags',
+		'tieude',
 		array(
 			'class'=>'CButtonColumn',
 		),

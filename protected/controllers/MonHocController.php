@@ -2,161 +2,181 @@
 
 class MonHocController extends Controller
 {
-    /**
-     * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
-     * using two-column layout. See 'protected/views/layouts/column2.php'.
-     */
-    public $layout='//layouts/column2';
+	/**
+	 * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
+	 * using two-column layout. See 'protected/views/layouts/column2.php'.
+	 */
+	public $layout='//layouts/column2';
 
-    /**
-     *@return array 1 mảng chứa các bộ lọc
-     * Bộ lọc "chỉ đọc"
-     */
-    public function filters()
-    {
-        return array(
-            'accessControl',
-            'postOnly + delete', // khi có yêu cầu delete
-        );
-    }
+	/**
+	 * @return array action filters
+	 */
+	public function filters()
+	{
+		return array(
+			'accessControl', // perform access control for CRUD operations
+			'postOnly + delete', // we only allow deletion via POST request
+		);
+	}
 
-    /**
-     * Đặc tả các luật truy cập
-     */
-    public function accessRules()
-    {
-        return array(
-            array('allow',  // Cho phép mọi user được xem thông tin
-                'actions'=>array('index','view'),
-                'users'=>array('*'),//All user
-            ),
-            array('allow', // Chỉ người có quyền mới được phép tạo và sửa
-                'actions'=>array('create','update'),
-                'users'=>array('@'),
-            ),
-            array('allow', // Xác nhận admin
-                'actions'=>array('admin','delete'),
-                'users'=>array('admin'),
-            ),
-            array('deny',  // Từ chối người dùng lạ
-                'users'=>array('*'),
-            ),
-        );
-    }
+	/**
+	 * Specifies the access control rules.
+	 * This method is used by the 'accessControl' filter.
+	 * @return array access control rules
+	 */
+	public function accessRules()
+	{
+		return array(
+			array('allow',  // allow all users to perform 'index' and 'view' actions
+				'actions'=>array('index','view'),
+				'users'=>array('*'),
+			),
+			array('allow', // allow authenticated user to perform 'create' and 'update' actions
+				'actions'=>array('create','update'),
+				'users'=>array('@'),
+			),
+			array('allow', // allow admin user to perform 'admin' and 'delete' actions
+				'actions'=>array('admin','delete'),
+				'users'=>array('admin'),
+			),
+			array('deny',  // deny all users
+				'users'=>array('*'),
+			),
+		);
+	}
 
-    /**
-     * Hiển thị thông tin môn học theo id
-     */
-    public function actionView($id)
-    {
+	/**
+	 * Displays a particular model.
+	 * @param integer $id the ID of the model to be displayed
+	 */
+	public function actionView($id)
+	{
+		$slide = Slides::model()->findAllByAttributes(array('tags'=>$id));
+		
+		$criteria = new CDBCriteria();
+		$criteria->compare('tags',$id,true);
+		$slides = new CActiveDataProvider('Slides',array(
+			'criteria'=>$criteria,
+		));
+		$this->render('view',array(
+			'model'=>$this->loadModel($id),
+			'slide'=>$slides,
+		));
+		
+	}
 
-        $this->render('view',array(
-            'model'=>$this->loadModel($id),
-        ));
-    }
+	/**
+	 * Creates a new model.
+	 * If creation is successful, the browser will be redirected to the 'view' page.
+	 */
+	public function actionCreate()
+	{
+		$model=new MonHoc;
 
-    /**
-     * Tạo môn học mới, chuyển hướng sang view page voi tham so ID
-     */
-    public function actionCreate()
-    {
-        $model=new MonHoc;
-        //Có yêu cầu
-        if(isset($_POST['MonHoc']))
-        {
-            $model->attributes=$_POST['MonHoc'];
-            if($model->save())
-                $this->redirect(array('view','id'=>$model->ID));
-        }
+		// Uncomment the following line if AJAX validation is needed
+		// $this->performAjaxValidation($model);
 
-        $this->render('create',array(
-            'model'=>$model,
-        ));
-    }
+		if(isset($_POST['MonHoc']))
+		{
+			$model->attributes=$_POST['MonHoc'];
+			if($model->save())
+				$this->redirect(array('view','id'=>$model->mamonhoc));
+		}
 
-    /**
-     * Update môn học theo id
-     */
-    public function actionUpdate($id)
-    {
-        $model=$this->loadModel($id);
+		$this->render('create',array(
+			'model'=>$model,
+		));
+	}
 
-        if(isset($_POST['MonHoc']))
-        {
-            $model->attributes=$_POST['MonHoc'];
-            if($model->save())
-                $this->redirect(array('view','id'=>$model->ID));
-        }
+	/**
+	 * Updates a particular model.
+	 * If update is successful, the browser will be redirected to the 'view' page.
+	 * @param integer $id the ID of the model to be updated
+	 */
+	public function actionUpdate($id)
+	{
+		$model=$this->loadModel($id);
 
-        $this->render('update',array(
-            'model'=>$model,
-        ));
-    }
+		// Uncomment the following line if AJAX validation is needed
+		// $this->performAjaxValidation($model);
 
-    /**
-     * Xóa môn học theo id
-     */
-    public function actionDelete($id)
-    {
-        $this->loadModel($id)->delete();
+		if(isset($_POST['MonHoc']))
+		{
+			$model->attributes=$_POST['MonHoc'];
+			if($model->save())
+				$this->redirect(array('view','id'=>$model->mamonhoc));
+		}
 
-        $this->redirect(array('admin'));
-    }
+		$this->render('update',array(
+			'model'=>$model,
+		));
+	}
 
-    /**
-     * Liệt kê các môn học
-     */
-    public function actionIndex()
-    {
-        $dataProvider=new CActiveDataProvider('MonHoc');
-        $this->render('index',array(
-            'dataProvider'=>$dataProvider,
-        ));
-    }
+	/**
+	 * Deletes a particular model.
+	 * If deletion is successful, the browser will be redirected to the 'admin' page.
+	 * @param integer $id the ID of the model to be deleted
+	 */
+	public function actionDelete($id)
+	{
+		$this->loadModel($id)->delete();
 
-    /**
-     * Quản lí các môn học
-     */
-    public function actionAdmin()
-    {
-        $model=new MonHoc('search');
-        if(isset($_GET['MonHoc']))
-            $model->attributes=$_GET['MonHoc'];
-        if($model!=NULL)
-        $this->render('admin',array(
-            'model'=>$model,
-        ));
-        else print("Error");
+		// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
+		if(!isset($_GET['ajax']))
+			$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
+	}
 
-    }
+	/**
+	 * Lists all models.
+	 */
+	public function actionIndex()
+	{
+		$dataProvider=new CActiveDataProvider('MonHoc');
+		$this->render('index',array(
+			'dataProvider'=>$dataProvider,
+		));
+	}
 
-    /**
-     * Lấy môn học theo id( id được lấy GET['Slides']->id;
-     * throws CHttpException
-     */
-    public function loadModel($id)
-    {
-        $model=MonHoc::model()->findByPk($id);
-        if($model===null)
-            throw new CHttpException(404,'The requested page does not exist.');
-        return $model;
-    }
-    /*
-     * Liệt kệ tất cả các slides cua 1 mon
-     */
-    public function getSlideOption()
-    {
-        $slidesArray = CHtml::listData($this->slides,'id','slides');
-        return $slidesArray;
-    }
-    /*
-     * Liệt kê tất cả các môn học
-     */
-    public function getSubjectOption()
-    {
-        $monhocArray = CHtml::listData($this,'ID','tenmonhoc');
-        print_r($monhocArray);
-        return $monhocArray;
-    }
+	/**
+	 * Manages all models.
+	 */
+	public function actionAdmin()
+	{
+		$model=new MonHoc('search');
+		$model->unsetAttributes();  // clear any default values
+		if(isset($_GET['MonHoc']))
+			$model->attributes=$_GET['MonHoc'];
 
+		$this->render('admin',array(
+			'model'=>$model,
+		));
+	}
+
+	/**
+	 * Returns the data model based on the primary key given in the GET variable.
+	 * If the data model is not found, an HTTP exception will be raised.
+	 * @param integer $id the ID of the model to be loaded
+	 * @return MonHoc the loaded model
+	 * @throws CHttpException
+	 */
+	public function loadModel($id)
+	{
+		$model=MonHoc::model()->findByPk($id);
+		if($model===null)
+			throw new CHttpException(404,'The requested page does not exist.');
+		return $model;
+	}
+
+	/**
+	 * Performs the AJAX validation.
+	 * @param MonHoc $model the model to be validated
+	 */
+	protected function performAjaxValidation($model)
+	{
+		if(isset($_POST['ajax']) && $_POST['ajax']==='mon-hoc-form')
+		{
+			echo CActiveForm::validate($model);
+			Yii::app()->end();
+		}
+	}
 }

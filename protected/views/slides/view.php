@@ -8,22 +8,32 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-	array('label'=>'List Slides', 'url'=>array('index')),
-	array('label'=>'Create Slides', 'url'=>array('create')),
-	array('label'=>'Update Slides', 'url'=>array('update', 'id'=>$model->id)),
-	array('label'=>'Delete Slides', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>'Are you sure you want to delete this item?')),
-	array('label'=>'Manage Slides', 'url'=>array('admin')),
+	//array('label'=>'List Slides', 'url'=>array('index')),
+	//array('label'=>'Create Slides', 'url'=>array('create')),
+	array('label'=>'Sửa thông tin slide', 'url'=>array('update', 'id'=>$model->id),'visible'=>!Yii::app()->user->isGuest),
+	array('label'=>'Xóa slide', 'url'=>'#','visible'=>!Yii::app()->user->isGuest, 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>'Are you sure you want to delete this item?')),
+	//array('label'=>'Manage Slides', 'url'=>array('admin')),
 );
 ?>
 
-<h1>Thông tin slide <?php echo $model->id; ?></h1>
+<h1>Xem thông tin slide<?php echo $model->id; ?></h1>
 
 <?php $this->widget('zii.widgets.CDetailView', array(
 	'data'=>$model,
 	'attributes'=>array(
 		'id',
-		'link',
-		'monhoc',
-		'ten',
+		'noidung',
+		'tags',
+		'tieude',
 	),
 )); ?>
+<?php /*$this->widget('booster.widgets.TbFileUpload', array(
+    'url' => $this->createUrl("my/upload"),
+    'model' => $model,
+    'attribute' => 'picture', // see the attribute?
+    'multiple' => true,
+    'options' => array(
+    'maxFileSize' => 2000000,
+    'acceptFileTypes' => 'js:/(\.|\/)(gif|jpe?g|png)$/i',
+))); */?>
+

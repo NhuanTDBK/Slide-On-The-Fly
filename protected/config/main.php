@@ -10,8 +10,18 @@ return array(
 	'name'=>'Slides On The Fly',
 
 	// preloading 'log' component
-	'preload'=>array('log'),
-
+	'aliases'=>array(
+		'booster'=>realpath(__DIR__.'/../extensions/yiibooster'),
+	),
+	'preload'=>array('log','booster'
+	),
+	
+	'components' => array(
+        'Booster' => array(
+            'class' => 'aliased.path.to.booster.directory.and.inside.it.Bootstrap.class'
+        )
+    ),
+	
 	// autoloading model and component classes
 	'import'=>array(
 		'application.models.*',
@@ -79,6 +89,11 @@ return array(
 				*/
 			),
 		),
+		'booster'=>array(
+			'class'=>'booster.components.Booster',
+			
+		),
+		
 	),
 
 	// application-level parameters that can be accessed

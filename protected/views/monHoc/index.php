@@ -3,16 +3,16 @@
 /* @var $dataProvider CActiveDataProvider */
 
 $this->breadcrumbs=array(
-	'Mon Hoc',
+	'Môn học',
 );
 
 $this->menu=array(
-	array('label'=>'Tạo môn học', 'url'=>array('create')),
-	array('label'=>'Quản lí môn học', 'url'=>array('admin')),
+	array('label'=>'Tạo môn học mới', 'url'=>array('create'),'visible'=>!Yii::app()->user->isGuest),
+	array('label'=>'Quản lí môn học', 'url'=>array('admin'),'visible'=>!Yii::app()->user->isGuest),
 );
 ?>
 
-<h1>Môn học</h1>
+<h1>Các môn học</h1>
 
 <?php $this->widget('zii.widgets.CListView', array(
 	'dataProvider'=>$dataProvider,

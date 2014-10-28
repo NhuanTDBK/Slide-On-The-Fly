@@ -7,14 +7,14 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-	array('label'=>'Create Slides', 'url'=>array('create')),
-	array('label'=>'Manage Slides', 'url'=>array('admin')),
+	array('label'=>'Tạo slide mới', 'url'=>array('create'),'visible'=>!Yii::app()->user->isGuest),
+	array('label'=>'Quản lí slides', 'url'=>array('admin'),'visible'=>!Yii::app()->user->isGuest),
 );
 ?>
 
 <h1>Slides</h1>
-<h2>Liệt kê các slides</h2>
+
 <?php $this->widget('zii.widgets.CListView', array(
 	'dataProvider'=>$dataProvider,
-	'itemView'=>'_view',
+	'itemView'=>'_viewSlide',
 )); ?>

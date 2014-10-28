@@ -16,29 +16,25 @@
 	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/form.css" />
 
 	<title><?php echo CHtml::encode($this->pageTitle); ?></title>
-	<link rel="stylesheet" style="css/text" href="<?php echo Yii::app()->request->baseUrl;?>/css/style.css"/>
-	<div id="ground1">
-		<img style=" height: 130px; width: 110px;margin-top: 10px;margin-left: 50;" src="<?php echo Yii::app()->request->baseUrl;?>/images/2.jpg">
-	</div>
 </head>
 
 <body>
 
 <div class="container" id="page">
-<!--
+
 	<div id="header">
+		<div id="logo"><?php echo CHtml::encode(Yii::app()->name); ?></div>
+	</div><!-- header -->
 
-		<div id="logo"><?php //echo CHtml::encode(Yii::app()->name); ?></div>
-
-    </div> --> <!-- header -->
-	<div class="ground2">
+	<div id="mainmenu">
 		<?php $this->widget('zii.widgets.CMenu',array(
 			'items'=>array(
 				array('label'=>'Home', 'url'=>array('/site/index')),
 				array('label'=>'About', 'url'=>array('/site/page', 'view'=>'about')),
-				//array('label'=>'Contact', 'url'=>array('/site/contact')),
+				array('label'=>'Contact', 'url'=>array('/site/contact')),
 				array('label'=>'Môn học','url'=>array('/monHoc/index')),
-                array('label'=>'Login', 'url'=>array('/site/login'), 'visible'=>Yii::app()->user->isGuest),
+				array('label'=>'Slides','url'=>array('/slides/index'),'visible'=>!Yii::app()->user->isGuest),
+				array('label'=>'Login', 'url'=>array('/site/login'), 'visible'=>Yii::app()->user->isGuest),
 				array('label'=>'Logout ('.Yii::app()->user->name.')', 'url'=>array('/site/logout'), 'visible'=>!Yii::app()->user->isGuest)
 			),
 		)); ?>
@@ -54,7 +50,8 @@
 	<div class="clear"></div>
 
 	<div id="footer">
-		Copyright &copy; <?php echo date('Y'); ?> by Team3<br/>
+		Copyright &copy; <?php echo date('Y'); ?> by Team69<br/>
+		All Rights Reserved.<br/>
 		<?php echo Yii::powered(); ?>
 	</div><!-- footer -->
 
