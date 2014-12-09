@@ -8,8 +8,8 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-	array('label'=>'List Slides', 'url'=>array('index')),
-	array('label'=>'Create Slides', 'url'=>array('create')),
+	array('label'=>'List Slides', 'url'=>array('index'),'visible'=>Yii::app()->user->getState('name')=='admin'),
+	array('label'=>'Create Slides', 'url'=>array('create'),'visible'=>Yii::app()->user->getState('name')=='admin'),
 );
 
 Yii::app()->clientScript->registerScript('search', "

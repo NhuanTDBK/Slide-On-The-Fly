@@ -7,10 +7,10 @@ $this->breadcrumbs=array(
 	'Create',
 );
 
-$this->menu=array(
-	//array('label'=>'List Slides', 'url'=>array('index'),'visible'=>!Yii::app()->user->isGuest),
-	//array('label'=>'Manage Slides', 'url'=>array('admin'),'visible'=>!Yii::app()->user->isGuest),
-);
+//$this->menu=array(
+//	array('label'=>'List Slides', 'url'=>array('index'),'visible'=>Yii::app()->user->getState('name')=='admin'),
+//	array('label'=>'Manage Slides', 'url'=>array('admin'),'visible'=>Yii::app()->user->getState('name')=='admin'),
+//);
 ?>
 
 <h1>Thêm slide môn học</h1>

@@ -17,5 +17,4 @@
 	<?php echo CHtml::encode($data->mieuta); ?>
 	<br />
 
-
 </div>

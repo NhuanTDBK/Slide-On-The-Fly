@@ -1,17 +1,50 @@
 #ground1
-{background-image:url('1.jpg'); background-size:cover; height:150px;width:100%;border-top:5px solid #f63; position: relative;}
+{background-image:url('/Slide-On-The-Fly/images/13.jpg'); background-size:cover; height:150px;width:100%; position: relative;}
 #text1
-{color:white;font-size:36px; position: absolute; left:200px; top:25px; }
+{color :#713131; font-size:50px; position: absolute; left:200px; top:35px; }
 #dangnhap{position:absolute; left:1200px; }
-#main{ width:750px; float:left;-moz-border-radius: 10px; margin-top: 20px;margin-left: 100;box-shadow: -5px -5px 5px rgba(227, 21, 21, 1); border-radius: 10px 10px; border: solid 1px red;}
-#right{height:auto; width: 300px; float:right; right:350px; box-shadow: 0px 0px 7px rgba(227, 21, 21, 1);border-radius: 5px 5px;margin-top: 20px;margin-right: 50;border: solid 1px red;}
-#background{background-color: rgba(249, 177, 51, 1);}
+#main{ width:750px; float:left;-moz-border-radius: 10px; margin-top: 20px;margin-left: 100px;box-shadow: -5px -5px 5px #2B2F27; border-radius: 10px 10px; border: solid 1px #000CFF;}
+#right{height:auto; width: 300px; float:right; right:350px; box-shadow: -10px -10px 15px #2B2F27;border-radius: 5px 5px;margin-top: 20px;margin-right: 50px;border: solid 1px #000CFF;}
+#background{background-color: white;}
 #content{background-color: rgba(249, 177, 51, 1);}
-#active{background-color: #f60; color: #fff; text-size: 15px; padding: 10px 85px 10px 10px; font-size:16px; font-weight:bold;}
+#active{background-color: #f60; color: #fff;  padding: 5px 85px 10px 10px; font-size:16px; font-weight:bold;}
 .ground2 ul li
-{list-style:none; float:left;position: relative; left: 300px;padding: 10px 85px 10px 10px;border-right: 2px solid #F60;border-left: 2px solid #F60;}
+{list-style:none; float:left;position: relative; left: 20px;
+padding: 5px 65px 10px 10px;border-right: 2px solid #000;border-left: 2px solid #000;}
 .ground2
-{background-color:orange;font-size:16px; font-weight:bold; height:40px; width:100%; position: relative;border-top: 1px solid #f60;border-bottom: 1px solid #F60;}
+{background-color:#6E73DA;font-size:16px; font-weight:bold; height:40px; width:100%; position: relative;border-top: 1px solid #000;border-bottom: 1px solid #000;}
 .ground2 a
-{text-decoration: none; color: white; margin-left: 50; }
-.ground2 ul li:hover{ background-color: #f60; color: #fff; text-size: 15px; padding: 10px 85px 10px 10px; font-size:16px; font-weight:bold;}
+{text-decoration: none; color: white; margin-left: 50px; }
+.ground2 ul li:hover{ background-color: #1637EC; color: white; padding: 5px 65px 10px 10px; font-size:16px; font-weight:bold;}
+#clear{clear: both;}
+.ribbon {
+    display:inline-block;
+}
+  
+.ribbon a:link, .ribbon a:visited {
+    color:#000;
+    text-decoration:none;
+    float:left;
+    height:3.5em;
+    overflow:hidden;
+}
+  
+.ribbon span {
+    background:#fff;
+    display:inline-block;
+    line-height:3em;
+    padding:0 1em;
+    margin-top:0.5em;
+    position:relative;
+  
+    -webkit-transition: background-color 0.2s, margin-top 0.2s;  /* Saf3.2+, Chrome */
+    -moz-transition: background-color 0.2s, margin-top 0.2s;  /* FF4+ */
+    -ms-transition: background-color 0.2s, margin-top 0.2s;  /* IE10 */
+    -o-transition: background-color 0.2s, margin-top 0.2s;  /* Opera 10.5+ */
+    transition: background-color 0.2s, margin-top 0.2s;
+}
+  
+.ribbon a:hover span {
+    background:#FFD204;
+    margin-top:0;
+}

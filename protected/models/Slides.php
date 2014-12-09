@@ -37,7 +37,7 @@ class Slides extends CActiveRecord
 		);
 	}
 
-	/**
+    /**
 	 * @return array relational rules.
 	 */
 	public function relations()

@@ -52,7 +52,6 @@ class MonHocController extends Controller
 	public function actionView($id)
 	{
 		$slide = Slides::model()->findAllByAttributes(array('tags'=>$id));
-		
 		$criteria = new CDBCriteria();
 		$criteria->compare('tags',$id,true);
 		$slides = new CActiveDataProvider('Slides',array(
@@ -96,7 +95,13 @@ class MonHocController extends Controller
 	public function actionUpdate($id)
 	{
 		$model=$this->loadModel($id);
-
+		$slide = Slides::model()->findAllByAttributes(array('tags'=>$id));
+		
+		$criteria = new CDBCriteria();
+		$criteria->compare('tags',$id,true);
+		$slides = new CActiveDataProvider('Slides',array(
+			'criteria'=>$criteria,
+		));
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
@@ -109,6 +114,7 @@ class MonHocController extends Controller
 
 		$this->render('update',array(
 			'model'=>$model,
+			'slides'=>$slide
 		));
 	}
 

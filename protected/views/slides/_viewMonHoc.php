@@ -4,6 +4,7 @@
 ?>
 
 <div class="view">
-	<a href="<?php echo CHtml::encode($data->noidung); ?>"><?php echo CHtml::encode($data->tieude); ?></a>
+	<a href="<?php echo CHtml::encode($data->noidung); ?>">
+        <?php echo CHtml::encode($data->tieude); ?></a>
 	<br />
 </div>

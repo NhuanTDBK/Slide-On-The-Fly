@@ -10,8 +10,8 @@ $this->breadcrumbs=array(
 $this->menu=array(
 	//array('label'=>'List Slides', 'url'=>array('index')),
 	//array('label'=>'Create Slides', 'url'=>array('create')),
-	array('label'=>'Sửa thông tin slide', 'url'=>array('update', 'id'=>$model->id),'visible'=>!Yii::app()->user->isGuest),
-	array('label'=>'Xóa slide', 'url'=>'#','visible'=>!Yii::app()->user->isGuest, 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>'Are you sure you want to delete this item?')),
+	array('label'=>'Sửa thông tin slide', 'url'=>array('update', 'id'=>$model->id),'visible'=>Yii::app()->user->getState('name')=='admin'),
+	array('label'=>'Xóa slide', 'url'=>'#','visible'=>Yii::app()->user->getState('name')=='admin', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>'Are you sure you want to delete this item?')),
 	//array('label'=>'Manage Slides', 'url'=>array('admin')),
 );
 ?>

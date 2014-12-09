@@ -8,8 +8,8 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-	array('label'=>'List MonHoc', 'url'=>array('index')),
-	array('label'=>'Create MonHoc', 'url'=>array('create')),
+	array('label'=>'List MonHoc', 'url'=>array('index'),'visible'=>Yii::app()->user->getState('name')=='admin'),
+	array('label'=>'Create MonHoc', 'url'=>array('create'),'visible'=>Yii::app()->user->getState('name')=='admin'),
 );
 
 Yii::app()->clientScript->registerScript('search', "

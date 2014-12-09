@@ -34,9 +34,9 @@ $this->breadcrumbs=array(
 		<?php echo $form->labelEx($model,'password'); ?>
 		<?php echo $form->passwordField($model,'password'); ?>
 		<?php echo $form->error($model,'password'); ?>
-		<p class="hint">
+<!--		<p class="hint">
 			Hint: You may login with <kbd>demo</kbd>/<kbd>demo</kbd> or <kbd>admin</kbd>/<kbd>admin</kbd>.
-		</p>
+		</p>-->
 	</div>
 
 	<div class="row rememberMe">
@@ -47,6 +47,10 @@ $this->breadcrumbs=array(
 
 	<div class="row buttons">
 		<?php echo CHtml::submitButton('Login'); ?>
+	</div>
+        
+        <div class="row register">
+            <?php echo CHtml::link('Đăng ký tài khoản mới',array('user/register')); ?>
 	</div>
 
 <?php $this->endWidget(); ?>

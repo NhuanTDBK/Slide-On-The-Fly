@@ -10,9 +10,9 @@ $this->breadcrumbs=array(
 $this->menu=array(
 	//array('label'=>'List MonHoc', 'url'=>array('index')),
 	//array('label'=>'Create MonHoc', 'url'=>array('create')),
-	array('label'=>'Sửa đổi thông tin', 'url'=>array('update', 'id'=>$model->mamonhoc),'visible'=>!Yii::app()->user->isGuest),
-	array('label'=>'Xóa môn học', 'url'=>'#','visible'=>!Yii::app()->user->isGuest, 'linkOptions'=>array('submit'=>array('delete','id'=>$model->mamonhoc),'confirm'=>'Are you sure you want to delete this item?')),
-	array('label'=>'Thêm slide','url'=>array('/slides/create','id'=>$model->mamonhoc),'visible'=>!Yii::app()->user->isGuest),
+	array('label'=>'Sửa đổi thông tin', 'url'=>array('update', 'id'=>$model->mamonhoc),'visible'=>!Yii::app()->user->getState('tendangnhap')=='admin'),
+	array('label'=>'Xóa môn học', 'url'=>'#','visible'=>!Yii::app()->user->getState('tendangnhap')=='admin', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->mamonhoc),'confirm'=>'Are you sure you want to delete this item?')),
+	array('label'=>'Thêm slide','url'=>array('/slides/create','id'=>$model->mamonhoc),'visible'=>!Yii::app()->user->getState('tendangnhap')=='admin'),
 	//array('label'=>'Manage MonHoc', 'url'=>array('admin')),
 );
 ?>
@@ -28,11 +28,17 @@ $this->menu=array(
 	),
 )); ?>
 
-<?php $this->widget('zii.widgets.CListView', array(
+<div>
+<b>Link download bài giảng</b>
+</div>
+
+<?php Yii::app()->user->isGuest
+? print 'Bạn cần Đăng nhập để xem được Link Dowload'
+: $this->widget('zii.widgets.CListView', array(
 	'dataProvider'=>$slide,
 	'itemView'=>'/slides/_viewMonHoc',
 )); ?>
-<b>Link download bài giảng</b>
+
 
 
 

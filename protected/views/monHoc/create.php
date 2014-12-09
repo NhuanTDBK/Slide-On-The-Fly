@@ -7,9 +7,9 @@ $this->breadcrumbs=array(
 	'Create',
 );
 
-$this->menu=array(
-	array('label'=>'Liệt kê môn học', 'url'=>array('index'),'visible'=>!Yii::app()->user->isGuest),
-);
+//$this->menu=array(
+//	array('label'=>'Liệt kê môn học', 'url'=>array('index'),'visible'=>Yii::app()->user->getState('name')=='admin'),
+//);
 ?>
 
 <h1>Tạo môn học mới</h1>

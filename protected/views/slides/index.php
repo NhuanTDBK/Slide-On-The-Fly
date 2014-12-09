@@ -7,8 +7,8 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-	array('label'=>'Tạo slide mới', 'url'=>array('create'),'visible'=>!Yii::app()->user->isGuest),
-	array('label'=>'Quản lí slides', 'url'=>array('admin'),'visible'=>!Yii::app()->user->isGuest),
+	array('label'=>'Tạo slide mới', 'url'=>array('create'),'visible'=>Yii::app()->user->getState('name')=='admin'),
+	array('label'=>'Quản lí slides', 'url'=>array('admin'),'visible'=>Yii::app()->user->getState('name')=='admin'),
 );
 ?>
 
