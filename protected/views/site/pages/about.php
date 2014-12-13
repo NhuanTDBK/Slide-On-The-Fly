@@ -8,8 +8,8 @@ $this->breadcrumbs=array(
 ?>
 <h1>About</h1>
 <table>
-<img src="<?php echo Yii::app()->request->baseUrl;?>/images/Minh_Pic.jpg" style="width:200px; height:300px;padding-left: 10px;" >
-
+    <center><img src="<?php echo Yii::app()->request->baseUrl;?>/images/Minh_Pic.jpg" style="width:220px; height:300px;padding-left: 10px;" >
+</center>
         <tr> <td> Họ và tên:</td> 
                <td> TS. Nguyễn Bình Minh</td>            
         </tr>

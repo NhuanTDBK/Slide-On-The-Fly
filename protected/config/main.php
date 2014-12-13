@@ -7,7 +7,8 @@
 // CWebApplication properties can be configured here.
 return array(
 	'basePath'=>dirname(__FILE__).DIRECTORY_SEPARATOR.'..',
-	'name'=>'Slides On The Fly',
+	'name'=>'Web Tải Tài Liệu',
+        'theme'=>'memories',
 
 	// preloading 'log' component
 	'preload'=>array('log','booster'

@@ -3,7 +3,7 @@
 /* @var $model Slides */
 /* @var $form CActiveForm */
 ?>
-
+<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/main.css" />
 <div class="form">
     <script>
         var count = 0;
